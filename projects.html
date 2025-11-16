@@ -203,56 +203,59 @@ h2 {
 .circle-purple { background-color: #a855f7; } /* purple */  
 
 /* Photo Slider track for Projects */
-/* Slider Wrapper */
 .photo-slider-wrapper {
-  width: 1200px;         
-  height: 600px;        
+  width: 600px;      /* Slider width */
+  height: 400px;     /* Slider height */
   margin: 40px auto;
-  overflow: hidden;      
-  border-radius: 10px;   
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  overflow: hidden;
+  border-radius: 10px;
   position: relative;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
-/* Slider track (all images in row) */
 .photo-slider {
   display: flex;
   height: 100%;
   transition: transform 0.5s ease-in-out;
 }
 
-/* Each image */
 .photo-slider img {
-  width: 1200px;
-  height: 600px;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Fully contained in frame */
   flex-shrink: 0;
+  background-color: #f0f0f0; /* optional for empty space */
 }
 
-/* Navigation buttons */
-.slider-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  margin-top: 15px;
-}
-
-.slider-buttons button {
-  background-color: #1abc9c;
-  border: none;
-  padding: 10px 20px;
-  font-size: 24px;
-  border-radius: 8px;
+/* Navigation buttons floating left/right */
+.slider-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0,0,0,0.5);
   color: white;
+  border: none;
+  font-size: 30px;
+  padding: 10px 15px;
   cursor: pointer;
+  border-radius: 50%;
+  z-index: 10;
+  user-select: none;
   transition: background 0.3s;
 }
 
-.slider-buttons button:hover {
-  background-color: #16a085;
+.slider-nav:hover {
+  background-color: rgba(0,0,0,0.8);
 }
 
-    
+#prevBtn {
+  left: 10px;
+}
+
+#nextBtn {
+  right: 10px;
+}
+
   </style>
 </head>
 
@@ -308,24 +311,24 @@ h2 {
 </p>
 </div>
 
-  <div class="photo-slider-wrapper">
+<div class="photo-slider-wrapper">
   <div class="photo-slider">
-      <img src="Max Air Temp.png">
-      <img src="Dew Point Temp.png">
-      <img src="Sea Level Air Pressure.png">
-      <img src="Surface Air Pressure.png">
-      <img src="KDE Delta T for No Snow day.png">
-      <img src="KDE Delta T for Snow day.png">
-      <img src="newplot3.png">
-      <img src="pair_plot.png">
-      <img src="3d_scatter.png">
+      <img src="Max Air Temp.png" alt="Photo 1">
+      <img src="Dew Point Temp.png" alt="Photo 2">
+      <img src="Sea Level Air Pressure.png" alt="Photo 3">
+      <img src="Surface Air Pressure.png" alt="Photo 4">
+      <img src="KDE Delta T for No Snow day.png" alt="Photo 5">
+      <img src="KDE Delta T for Snow day.png" alt="Photo 6">
+      <img src="newplot3.png" alt="Photo 7">
+      <img src="pair_plot.png" alt="Photo 8">
+      <img src="3d_scatter.png" alt="Photo 9">
   </div>
+
+  <!-- Navigation Buttons -->
+  <button id="prevBtn" class="slider-nav">&#10094;</button>
+  <button id="nextBtn" class="slider-nav">&#10095;</button>
 </div>
-<!-- Navigation Buttons -->
-<div class="slider-buttons">
-  <button id="prevBtn">&#10094;</button>
-  <button id="nextBtn">&#10095;</button>
-</div>
+
 
     
 <div class="experience-item box-green">
@@ -439,25 +442,28 @@ h2 {
   
 </div>
 
+
   <script>
   const slider = document.querySelector(".photo-slider");
   const slides = document.querySelectorAll(".photo-slider img");
+  const total = slides.length;
   let index = 0;
 
   function updateSlide() {
-    slider.style.transform = `translateX(${-index * 450}px)`;
+    slider.style.transform = `translateX(${-index * 100}%)`; // Use % for responsive width
   }
 
   document.getElementById("nextBtn").onclick = () => {
-    index = (index + 1) % slides.length;
+    index = (index + 1) % total;
     updateSlide();
   };
 
   document.getElementById("prevBtn").onclick = () => {
-    index = (index - 1 + slides.length) % slides.length;
+    index = (index - 1 + total) % total;
     updateSlide();
   };
 </script>
+
 
 
   
