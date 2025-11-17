@@ -204,56 +204,52 @@ h2 {
 
 /* Photo Slider track for Projects */
 .photo-slider-wrapper {
-  width: 800px;      /* Slider width */
-  height: 400px;     /* Slider height */
+  width: 600px;
+  height: 400px;
   margin: 40px auto;
   overflow: hidden;
-  border-radius: 10px;
   position: relative;
+  border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
+/* slider container holds all images in ONE row */
 .photo-slider {
   display: flex;
+  width: 100%;
   height: 100%;
   transition: transform 0.5s ease-in-out;
 }
 
+/* each image MUST take full width of wrapper */
 .photo-slider img {
-  width: 100%;
+  width: 600px;          /* EXACT width of wrapper */
   height: 100%;
-  object-fit: contain; /* Fully contained in frame */
+  object-fit: contain;
   flex-shrink: 0;
-  background-color: #f0f0f0; /* optional for empty space */
+  background: #f5f5f5;
 }
 
-/* Navigation buttons floating left/right */
+/* nav buttons */
 .slider-nav {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(0,0,0,0.5);
+  font-size: 32px;
+  padding: 10px 16px;
+  background: rgba(0,0,0,0.5);
   color: white;
   border: none;
-  font-size: 30px;
-  padding: 10px 15px;
-  cursor: pointer;
   border-radius: 50%;
-  z-index: 10;
-  user-select: none;
-  transition: background 0.3s;
+  cursor: pointer;
+  z-index: 20;
 }
+
+#prevBtn { left: 10px; }
+#nextBtn { right: 10px; }
 
 .slider-nav:hover {
-  background-color: rgba(0,0,0,0.8);
-}
-
-#prevBtn {
-  left: 10px;
-}
-
-#nextBtn {
-  right: 10px;
+  background: rgba(0,0,0,0.8);
 }
 
   </style>
@@ -353,6 +349,29 @@ h2 {
 </p>
 </div>
 
+<div class="photo-slider-wrapper">
+  <div class="photo-slider">
+    <img src="SysID/Evolution_of_State_and_Output_of_the_LTI.png">
+    <img src="SysID/3D_Phase_Space_of_the_LTI_System.png">
+    <img src="SysID/Initial_KAN_Model_for_LTI.png">
+    <img src="SysID/Trained_KAN_Model_for_LTI_Sys_ID.png">
+    <img src="SysID/Loss_and_Regularization_Curve_for_Initial_KAN_Model.png">
+    <img src="SysID/Mapping_of_LTI_States_True_Vs_Prediction_Trained_KAN.png">
+    <img src="SysID/Final_KAN_Model_for_LTI.png">
+    <img src="SysID/Mapping_of_LTI_States_True_Vs_Prediction_Final_KAN.png">
+    <img src="SysID/Training_Dynamics_of_Loss_for_LTI_System.png">
+    <img src="SysID/Models_Parameter_Vs_RMSE_for_LTI_System.png">
+  </div>
+
+  <!-- Navigation Buttons -->
+  <button id="prevBtn" class="slider-nav">&#10094;</button>
+  <button id="nextBtn" class="slider-nav">&#10095;</button>
+</div>
+
+
+
+
+    
     
 <div class="experience-item">
 <strong>Kerberos Protocol</strong>
@@ -443,28 +462,27 @@ h2 {
 </div>
 
 
-  <script>
+<script>
   const slider = document.querySelector(".photo-slider");
   const slides = document.querySelectorAll(".photo-slider img");
   const total = slides.length;
   let index = 0;
 
   function updateSlide() {
-    slider.style.transform = `translateX(${-index * 100}%)`; // Use % for responsive width
+    slider.style.transform = `translateX(${-index * 600}px)`; 
+    // 600px = wrapper width
   }
 
-  document.getElementById("nextBtn").onclick = () => {
+  document.getElementById("nextBtn").addEventListener("click", () => {
     index = (index + 1) % total;
     updateSlide();
-  };
+  });
 
-  document.getElementById("prevBtn").onclick = () => {
+  document.getElementById("prevBtn").addEventListener("click", () => {
     index = (index - 1 + total) % total;
     updateSlide();
-  };
+  });
 </script>
-
-
 
   
 </body>
