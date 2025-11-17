@@ -170,6 +170,70 @@ h2 {
         margin: 0 20px;
       }
     }
+
+/* Photo Slider */
+.photo-slider-wrapper {
+  width: 800px;
+  height: 600px;
+  margin: 40px auto;
+  overflow: hidden;
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.photo-slider {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease-in-out;
+}
+
+.photo-slider img {
+  width: 800px;
+  height: 100%;
+  object-fit: contain;
+  flex-shrink: 0;
+  background-color: #f0f0f0;
+}
+
+.photo-slider iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+
+.slider-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 32px;
+  padding: 10px 16px;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.slider-nav.prev { left: 10px; }
+.slider-nav.next { right: 10px; }
+
+.slider-nav:hover {
+  background: rgba(0,0,0,0.8);
+}
+
+@media (max-width: 768px) {
+  .company-duration {
+    flex-direction: column;
+  }
+
+  .main-content {
+    margin: 0 20px;
+  }
+}    
   </style>
 </head>
 
@@ -229,6 +293,18 @@ h2 {
         </ul>
     </div>
 
+<!-- Image Slider 1-->
+<div class="photo-slider-wrapper">
+  <div class="photo-slider">
+    <img src="PLA/PLA-1.JPG">
+    <img src="PLA/PLA-2.JPG">
+    <img src="PLA/PLA-3.JPG">
+    <img src="PLA/PLA-4.JPG">
+  </div>
+  <button class="slider-nav prev">&#10094;</button>
+  <button class="slider-nav next">&#10095;</button>
+</div>
+      
   <div class="experience-item">
         <h3>Leadership Trainee</h3>
         <div class="company-duration">
@@ -281,9 +357,37 @@ unanimous adoption within 3 months.</li>
     <footer>
       <p>&copy; 2025 Md Kausar Hamid Miji. All rights reserved. Banner Image Source: Internet.</p>
     </footer>
-  
-
 </div>
 
+
+<script>
+document.querySelectorAll('.photo-slider-wrapper').forEach(wrapper => {
+
+  const slider = wrapper.querySelector('.photo-slider');
+  const slides = wrapper.querySelectorAll('img');
+  const prevBtn = wrapper.querySelector('.prev');
+  const nextBtn = wrapper.querySelector('.next');
+
+  let index = 0;
+
+  function update() {
+    const slideWidth = wrapper.offsetWidth;
+    slider.style.transform = `translateX(${-index * slideWidth}px)`;
+  }
+
+  nextBtn.addEventListener("click", () => {
+    index = (index + 1) % slides.length;
+    update();
+  });
+
+  prevBtn.addEventListener("click", () => {
+    index = (index - 1 + slides.length) % slides.length;
+    update();
+  });
+
+  window.addEventListener("resize", update);
+});
+</script>
+  
 </body>
 </html>
