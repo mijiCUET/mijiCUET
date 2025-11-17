@@ -463,25 +463,36 @@ h2 {
 
 
 <script>
-  const slider = document.querySelector(".photo-slider");
-  const slides = document.querySelectorAll(".photo-slider img");
-  const total = slides.length;
+document.querySelectorAll('.photo-slider-wrapper').forEach(wrapper => {
+
+  const slider = wrapper.querySelector('.photo-slider');
+  const slides = wrapper.querySelectorAll('img');
+  const prevBtn = wrapper.querySelector('.prev');
+  const nextBtn = wrapper.querySelector('.next');
+  const slideWidth = wrapper.offsetWidth;
+
   let index = 0;
 
-  function updateSlide() {
-    slider.style.transform = `translateX(${-index * 600}px)`; 
-    // 600px = wrapper width
+  function update() {
+    slider.style.transform = `translateX(${-index * slideWidth}px)`;
   }
 
-  document.getElementById("nextBtn").addEventListener("click", () => {
-    index = (index + 1) % total;
-    updateSlide();
+  nextBtn.addEventListener("click", () => {
+    index = (index + 1) % slides.length;
+    update();
   });
 
-  document.getElementById("prevBtn").addEventListener("click", () => {
-    index = (index - 1 + total) % total;
-    updateSlide();
+  prevBtn.addEventListener("click", () => {
+    index = (index - 1 + slides.length) % slides.length;
+    update();
   });
+
+  // Optional: update on window resize
+  window.addEventListener("resize", () => {
+    update();
+  });
+
+});
 </script>
 
   
